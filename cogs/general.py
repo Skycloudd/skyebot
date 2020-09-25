@@ -8,7 +8,7 @@ class General(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.command()
+	@commands.command(description='displays information about the bot')
 	async def info(self, ctx):
 		seconds = time.time() - self.bot.start_time
 		m, s = divmod(seconds, 60)
