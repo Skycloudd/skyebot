@@ -13,7 +13,8 @@ extensions = [
 	#normal users
 	'cogs.moderator',
 	'cogs.general',
-	'cogs.fun'
+	'cogs.fun',
+	'cogs.counting'
 ]
 
 default_prefixes = ['s!']
