@@ -29,10 +29,11 @@ class SkyeBot(commands.Bot):
 			command_prefix=get_prefix,
 			case_insensitive=True,
 			allowed_mentions=discord.AllowedMentions(
-				everyone=False,
+				everyone=True,
 				users=True,
-				roles=True)
+				roles=True
 			)
+		)
 		self.logger = logging.getLogger('discord')
 
 
