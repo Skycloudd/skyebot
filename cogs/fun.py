@@ -8,7 +8,7 @@ class Fun(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.command(aliases=['random'], description='generates a random number in the range minimum (inclusive) - maximum (inclusive)')
+	@commands.command(aliases=['random'], description='Generates a random number in the range minimum (inclusive) - maximum (inclusive)')
 	async def rng(self, ctx, minimum: int, maximum: int):
 		await ctx.send(randint(minimum, maximum))
 

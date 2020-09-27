@@ -12,7 +12,7 @@ class Moderator(commands.Cog):
 	async def is_mod(ctx):
 		return ctx.author.guild_permissions.manage_channels
 
-	@commands.command(description='bans a user from the server for an amount of time (0 minutes = permanent)')
+	@commands.command(description='Bans a user from the server for an amount of time (0 minutes = permanent)')
 	@commands.check(is_mod)
 	async def ban(self, ctx, user: discord.User, minutes: int = 0, *, reason: str = 'No reason provided'):
 		error_msg = 'An error occured while trying to kick this user.'
@@ -47,7 +47,7 @@ class Moderator(commands.Cog):
 			await asyncio.sleep(minutes * 60)
 			await ctx.guild.unban(user, reason=f'Time is up ({minutes} minutes)')
 
-	@commands.command(description='kicks a user from the server')
+	@commands.command(description='Kicks a user from the server')
 	@commands.check(is_mod)
 	async def kick(self, ctx, user: discord.User, *, reason: str = 'No reason provided'):
 		error_msg = 'An error occured while trying to kick this user.'

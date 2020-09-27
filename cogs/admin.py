@@ -10,7 +10,7 @@ class Admin(commands.Cog):
 		self.bot = bot
 
 	@commands.is_owner()
-	@commands.command(aliases=['quit', 'exit'], description='kills the bot')
+	@commands.command(aliases=['quit', 'exit'], description='Kills the bot')
 	async def forceexit(self, ctx):
 		await ctx.send(f'bot force-exited by {ctx.author.mention}')
 		exit(0)
@@ -22,7 +22,7 @@ class Admin(commands.Cog):
 		await ctx.send(f'Probably pulled.\n```bash\n{g.pull()}```')
 
 	@commands.is_owner()
-	@commands.command(name='reload', usage='<extension>', description='reloads an extension')
+	@commands.command(name='reload', usage='<extension>', description='Reloads an extension')
 	async def _reload(self, ctx, ext):
 		try:
 			self.bot.reload_extension(f'cogs.{ext}')
@@ -38,7 +38,7 @@ class Admin(commands.Cog):
 			self.bot.logger.exception(f'Failed to reload extension {ext}:')
 			
 	@commands.is_owner()
-	@commands.command(name='load', usage='<extension>', description='loads an extension')
+	@commands.command(name='load', usage='<extension>', description='Loads an extension')
 	async def _load(self, ctx, ext):
 		try:
 			self.bot.load_extension(f'cogs.{ext}')
@@ -54,7 +54,7 @@ class Admin(commands.Cog):
 			self.bot.logger.exception(f'Failed to reload extension {ext}:')
 
 	@commands.is_owner()
-	@commands.command(name='unload', usage='<extension>', description='unloads an extension')
+	@commands.command(name='unload', usage='<extension>', description='Unloads an extension')
 	async def _unload(self, ctx, ext):
 		try:
 			self.bot.unload_extension(f'cogs.{ext}')
@@ -68,7 +68,7 @@ class Admin(commands.Cog):
 			self.bot.logger.exception(f'Failed to unload extension {ext}:')
 
 	@commands.is_owner()
-	@commands.command(description='sets a \'playing\' activity')
+	@commands.command(description='Sets a \'playing\' activity')
 	async def activity(self, ctx,*, activity=None):
 		if activity:
 			game = discord.Game(activity)
