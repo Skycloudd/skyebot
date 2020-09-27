@@ -9,6 +9,13 @@
 }
 ```
 
+- Create a file called `counting.json`
+```json
+{
+	
+}
+```
+
 - Install dependencies with `python -m pip install -r requirements.txt`
 
 - Launch the bot with `python main.py`
