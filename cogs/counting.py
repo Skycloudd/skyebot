@@ -42,7 +42,7 @@ class Counting(commands.Cog):
 			data[str(msg.guild.id)]	= 1
 			with open('counting.json', 'w') as f:
 				json.dump(data, f, indent=4)
-			await msg.channel.send(f'wrong number! the counter has been reset to `1`')
+			await msg.channel.send(f'wrong number! the counter has been reset to 1')
 
 	@commands.command(description='Displays the current number for this server')
 	async def currentnum(self, ctx):
