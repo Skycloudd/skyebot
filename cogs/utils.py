@@ -11,14 +11,17 @@ class Utils(commands.Cog):
 			return
 
 		if isinstance(error, commands.MissingRequiredArgument):
-			return await ctx.send(f'error: `{error}`')
+			await ctx.send(f'error: `{error}`')
+			return
 
 		if isinstance(error, commands.BadArgument):
-			return await ctx.send(f'error: `{error}`')
+			await ctx.send(f'error: `{error}`')
+			return
 
 		if isinstance(error, commands.CommandOnCooldown):
-			return await ctx.send(f'{ctx.author.mention}, you have to wait {round(error.retry_after, 2)} seconds before using this again')
-		
+			await ctx.send(f'{ctx.author.mention}, you have to wait {round(error.retry_after, 2)} seconds before using this again')
+			return
+
 		raise error
 
 
