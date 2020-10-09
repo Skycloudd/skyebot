@@ -17,7 +17,7 @@ extensions = [
 	'cogs.counting'
 ]
 
-default_prefixes = [',']
+default_prefixes = ['s!']
 def get_prefix(bot, message):
 	return commands.when_mentioned_or(*default_prefixes)(bot, message)
 
