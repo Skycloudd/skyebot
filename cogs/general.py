@@ -13,7 +13,7 @@ class General(commands.Cog):
 		botinfo = await self.bot.application_info()
 		await botinfo.owner.send(f'**report from {ctx.author.name}#{ctx.author.discriminator} (id:{ctx.author.id})**\n```{report_message}```')
 
-		await ctx.send('your report was sent to the developer!')
+		await ctx.send('Your report was sent to the developer!')
 
 	@commands.command(description='Displays information about the bot')
 	async def info(self, ctx):

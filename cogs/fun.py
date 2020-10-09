@@ -40,7 +40,7 @@ class Fun(commands.Cog):
 		output += f'{portals[9]}   {portals[5]}\n'
 		output += f' {portals[8]}{portals[7]}{portals[6]}\n'
 		output += '\n```\n'
-		output += f'your seed is a {eyes} eye'
+		output += f'Your seed is a {eyes} eye'
 
 		await ctx.send(output)
 

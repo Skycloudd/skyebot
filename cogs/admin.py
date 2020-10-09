@@ -12,7 +12,7 @@ class Admin(commands.Cog):
 	@commands.is_owner()
 	@commands.command(aliases=['quit', 'exit'], description='Kills the bot')
 	async def forceexit(self, ctx):
-		await ctx.send(f'bot force-exited by {ctx.author.mention}')
+		await ctx.send(f'Bot force-exited by {ctx.author.mention}')
 		exit(0)
 
 	@commands.is_owner()
