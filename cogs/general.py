@@ -8,6 +8,13 @@ class General(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
+	@commands.command(description='Sends a report to the bot developer')
+	async def report(self, ctx, *, report_message):
+		botinfo = await self.bot.application_info()
+		await botinfo.owner.send(f'**report from {ctx.author.name}#{ctx.author.discriminator} (id:{ctx.author.id})**\n```{report_message}```')
+
+		await ctx.send('your report was sent to the developer!')
+
 	@commands.command(description='Displays information about the bot')
 	async def info(self, ctx):
 		seconds = time.time() - self.bot.start_time
