@@ -12,6 +12,7 @@ extensions = [
 	'cogs.admin',
 	#normal users
 	'cogs.moderator',
+	'cogs.logs',
 	'cogs.general',
 	'cogs.fun',
 	'cogs.counting'
