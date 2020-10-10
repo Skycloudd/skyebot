@@ -51,7 +51,10 @@ class Logs(commands.Cog):
 		embed.add_field(name='Channel', value=msg.channel.mention, inline=True)
 		embed.add_field(name='Message', value=msg.content, inline=False)
 
-		await channel.send(embed=embed)
+		try:
+			await channel.send(embed=embed)
+		except discord.HTTPException:
+			return
 
 	@commands.Cog.listener()
 	async def on_message_edit(self, before, after):
@@ -76,7 +79,10 @@ class Logs(commands.Cog):
 		embed.add_field(name='Original Message', value=before.content, inline=False)
 		embed.add_field(name='New Message', value=after.content, inline=False)
 
-		await channel.send(embed=embed)
+		try:
+			await channel.send(embed=embed)
+		except discord.HTTPException:
+			return
 
 
 def setup(bot):
