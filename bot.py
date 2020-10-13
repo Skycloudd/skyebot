@@ -15,7 +15,8 @@ extensions = [
 	'cogs.logs',
 	'cogs.general',
 	'cogs.fun',
-	'cogs.counting'
+	'cogs.counting',
+	'cogs.findseed'
 ]
 
 default_prefixes = [',']
