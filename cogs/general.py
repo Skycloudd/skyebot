@@ -24,6 +24,10 @@ class General(commands.Cog):
 		w, d = divmod(d, 7)
 		uptime_str = f'{int(w)}w : {int(d)}d : {int(h)}h : {int(m)}m : {int(s)}s'
 
+		member_count = 0
+		for guild in self.bot.guilds:
+			member_count += len(guild.members)
+
 		embed = discord.Embed(
 			title='Information about SkyeBot',
 			colour=self.bot.main_colour,
@@ -51,6 +55,10 @@ class General(commands.Cog):
 			name='Uptime',
 			value=uptime_str,
 			inline=True
+		)
+		embed.add_field(
+			name='User count',
+			value=f'{member_count} users in {len(self.bot.guilds)} servers'
 		)
 
 		await ctx.send(embed=embed)
