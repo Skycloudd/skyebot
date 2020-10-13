@@ -4,7 +4,7 @@ from discord.ext import commands
 from random import randint
 
 
-class Fun(commands.Cog):
+class Findseed(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
@@ -42,4 +42,4 @@ class Fun(commands.Cog):
 
 
 def setup(bot):
-	bot.add_cog(Fun(bot))
+	bot.add_cog(Findseed(bot))
