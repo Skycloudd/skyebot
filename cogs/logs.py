@@ -53,7 +53,7 @@ class Logs(commands.Cog):
 
 		try:
 			await channel.send(embed=embed)
-		except discord.HTTPException:
+		except:
 			return
 
 	@commands.Cog.listener()
@@ -81,7 +81,7 @@ class Logs(commands.Cog):
 
 		try:
 			await channel.send(embed=embed)
-		except discord.HTTPException:
+		except:
 			return
 
 
