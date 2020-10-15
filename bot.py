@@ -38,7 +38,6 @@ class SkyeBot(commands.Bot):
 		)
 		self.logger = logging.getLogger('discord')
 
-
 		for extension in extensions:
 			self.load_extension(extension)
 
@@ -47,12 +46,10 @@ class SkyeBot(commands.Bot):
 
 		self.start_time = time.time()
 		self.main_colour = discord.Colour(0xc500ff)
+		self.default_prefixes = default_prefixes
 
 	async def on_ready(self):
 		print(f'logged in as {self.user}')
-
-		activity = f'{default_prefixes[0]}help'
-		await self.change_presence(activity=discord.Game(activity))
 
 	async def on_message(self, msg):
 		if msg.author.bot:

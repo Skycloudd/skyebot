@@ -1,9 +1,24 @@
-from discord.ext import commands
+import discord
+from discord.ext import commands, tasks
 
 
 class Utils(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
+		self.update_activity.start()
+
+	def cog_unload(self):
+		self.update_activity.cancel()
+
+	@tasks.loop(seconds=60*5)
+	async def update_activity(self):
+		activity = f'{self.bot.default_prefixes[0]}help | in {len(self.bot.guilds)} servers'
+		await self.bot.change_presence(activity=discord.Game(activity))
+
+	@update_activity.before_loop
+	async def before_activity(self):
+		await self.bot.wait_until_ready()
+
 
 	@commands.Cog.listener()
 	async def on_command_error(self, ctx, error):
