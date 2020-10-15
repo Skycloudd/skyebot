@@ -4,3 +4,5 @@ config.json
 counting.json
 logs_config.json
 *.log
+
+Procfile

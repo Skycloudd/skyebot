@@ -2,3 +2,5 @@ asyncio==3.4.3
 discord.py==1.4.1
 GitPython==2.1.15
 PyNaCl==1.4.0
+dnspython==1.16.0
+async-timeout==3.0.1
