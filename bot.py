@@ -58,4 +58,4 @@ class SkyeBot(commands.Bot):
 		await self.process_commands(msg)
 
 	def run(self):
-		super().run(self.config['token'])
+		super().run(self.config['token'], reconnect=True)
