@@ -7,6 +7,8 @@ import json
 class Counting(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
+		with open('counting.json', 'w+') as f:
+			json.dump({}, f, indent=4)
 
 	@commands.Cog.listener()
 	async def on_message(self, msg):
