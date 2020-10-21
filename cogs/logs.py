@@ -84,11 +84,15 @@ class Logs(commands.Cog):
 				return
 			return
 
-		embed = discord.Embed(
-			title='Edited Message',
-			color=self.bot.main_colour,
-			timestamp=after.edited_at
-		)
+		try:
+			embed = discord.Embed(
+				title='Edited Message',
+				color=self.bot.main_colour,
+				timestamp=after.edited_at
+			)
+		except TypeError:
+			return
+		
 		embed.add_field(name='User', value=before.author.mention, inline=True)
 		embed.add_field(name='Channel', value=before.channel.mention, inline=True)
 		embed.add_field(name='Original Message', value=before.content, inline=False)
