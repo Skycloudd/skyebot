@@ -42,6 +42,14 @@ class Logs(commands.Cog):
 		except KeyError:
 			return
 
+		if msg.author == self.bot.user and msg.channel == channel:
+			try:
+				await channel.send(embed=msg.embeds[0])
+			except IndexError:
+				return
+			return
+
+
 		embed = discord.Embed(
 			title='Deleted Message',
 			color=self.bot.main_colour,
@@ -58,7 +66,7 @@ class Logs(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_message_edit(self, before, after):
-		if before.content == after.content:
+		if before.content == after.content and len(before.embeds) != len(after.embeds) + 1:
 			return
 
 		with open('logs_config.json', 'r') as f:
@@ -67,6 +75,13 @@ class Logs(commands.Cog):
 		try:
 			channel = self.bot.get_channel(int(logs_config[str(after.guild.id)]))
 		except KeyError:
+			return
+
+		if before.author == self.bot.user and before.channel == channel:
+			try:
+				await channel.send(embed=before.embeds[0])
+			except IndexError:
+				return
 			return
 
 		embed = discord.Embed(
