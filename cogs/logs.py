@@ -15,7 +15,19 @@ class Logs(commands.Cog):
 			await ctx.send('Invalid command passed')
 
 	@logs.command()
-	async def channel(self, ctx, channel: discord.TextChannel):
+	async def channel(self, ctx, channel: discord.TextChannel = None):
+		if not channel:
+			with open('logs_config.json', 'r') as f:
+				logs_config = json.load(f)
+
+			logs_config.pop(str(ctx.guild.id), None)
+
+			with open('logs_config.json', 'w') as f:
+				json.dump(logs_config, f, indent=4)
+
+			await ctx.send('Message logging has been disabled.')
+			return
+
 		if channel.guild.id != ctx.guild.id:
 			return
 
