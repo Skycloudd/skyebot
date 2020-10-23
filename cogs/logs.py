@@ -5,9 +5,14 @@ import json
 
 
 class Logs(commands.Cog):
-
 	def __init__(self, bot):
 		self.bot = bot
+		try:
+			with open('logs_config.json', 'r') as f:
+				pass
+		except:
+			with open('logs_config.json', 'w+') as f:
+				json.dump({}, f, indent=4)
 
 	@commands.group()
 	async def logs(self, ctx):
