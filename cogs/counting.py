@@ -19,7 +19,10 @@ class Counting(commands.Cog):
 		if msg.author.bot:
 			return
 
-		if 'counting' not in msg.channel.name:
+		try:
+			if 'counting' not in msg.channel.name:
+				return
+		except AttributeError:
 			return
 
 		if msg.content.split(' ')[0].isdigit():

@@ -58,6 +58,8 @@ class Logs(commands.Cog):
 			channel = self.bot.get_channel(int(logs_config[str(msg.guild.id)]))
 		except KeyError:
 			return
+		except AttributeError:
+			return
 
 		if msg.author == self.bot.user and msg.channel == channel:
 			try:
@@ -92,6 +94,8 @@ class Logs(commands.Cog):
 		try:
 			channel = self.bot.get_channel(int(logs_config[str(after.guild.id)]))
 		except KeyError:
+			return
+		except AttributeError:
 			return
 
 		if before.author == self.bot.user and before.channel == channel:
