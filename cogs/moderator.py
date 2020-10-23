@@ -15,7 +15,7 @@ class Moderator(commands.Cog):
 	@commands.command(description='Bans a user from the server for an amount of time (0 minutes = permanent)')
 	@commands.check(is_mod)
 	async def ban(self, ctx, user: discord.User, minutes: int = 0, *, reason: str = 'No reason provided'):
-		error_msg = 'An error occured while trying to kick this user.'
+		error_msg = 'An error occured while trying to ban this user.'
 
 		if minutes == 0:
 			try:
@@ -27,7 +27,7 @@ class Moderator(commands.Cog):
 				await ctx.guild.ban(user, reason=reason, delete_message_days=0)
 			except:
 				await ctx.send(error_msg)
-				await user.send(f'An error occured while trying to kick you.')
+				await user.send(f'An error occured while trying to ban you.')
 				return
 			await ctx.send(f'Banned {user.name} from this server permanently.\nReason: `{reason}`')
 
@@ -41,7 +41,7 @@ class Moderator(commands.Cog):
 				await ctx.guild.ban(user, reason=reason, delete_message_days=0)
 			except:
 				await ctx.send(error_msg)
-				await user.send(f'An error occured while trying to kick you.')
+				await user.send(f'An error occured while trying to ban you.')
 				return
 			await ctx.send(f'Banned {user.name} from this server for {minutes} minutes.\nReason: `{reason}`')
 			await asyncio.sleep(minutes * 60)
