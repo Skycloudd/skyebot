@@ -47,6 +47,7 @@ class SkyeBot(commands.Bot):
 		self.start_time = time.time()
 		self.main_colour = discord.Colour(0xc500ff)
 		self.default_prefixes = default_prefixes
+		self.owner = await self.bot.application_info().owner
 
 	async def on_ready(self):
 		print(f'logged in as {self.user}')

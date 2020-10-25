@@ -10,8 +10,7 @@ class General(commands.Cog):
 
 	@commands.command(description='Sends a report to the bot developer')
 	async def report(self, ctx, *, report_message):
-		appinfo = await self.bot.application_info()
-		await appinfo.owner.send(f'**report from {ctx.author.name}#{ctx.author.discriminator} (id:{ctx.author.id})**\n```{report_message}```')
+		await self.bot.owner.send(f'**report from {ctx.author.name}#{ctx.author.discriminator} (id:{ctx.author.id})**\n```{report_message}```')
 
 		await ctx.send('Your report was sent to the developer!')
 
