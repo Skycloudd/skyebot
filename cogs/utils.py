@@ -34,7 +34,9 @@ class Utils(commands.Cog):
 			return
 
 		elif isinstance(error, commands.CommandOnCooldown):
-			await ctx.send(f'{ctx.author.mention}, you have to wait {round(error.retry_after, 2)} seconds before using this again')
+			cooldown_type = str(error.cooldown.type).rsplit('.', 1)[-1]
+
+			await ctx.send(f'{ctx.author.mention}, you have to wait {round(error.retry_after, 2)} seconds before using this again. The cooldown for this command is {error.cooldown.rate} per {error.cooldown.per}s for every {cooldown_type}')
 			return
 
 		elif isinstance(error, commands.CommandInvokeError):
