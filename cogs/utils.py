@@ -46,10 +46,6 @@ class Utils(commands.Cog):
 
 		raise error
 
-	@commands.command()
-	async def test(self, ctx):
-		int('h')
-
 
 def setup(bot):
 	bot.add_cog(Utils(bot))
