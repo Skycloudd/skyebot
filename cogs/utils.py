@@ -25,18 +25,18 @@ class Utils(commands.Cog):
 		if isinstance(error, commands.CommandNotFound):
 			return
 
-		elif isinstance(error, commands.MissingRequiredArgument):
-			await ctx.send(f'Error: `{error}`')
-			return
-
-		elif isinstance(error, commands.BadArgument):
+		elif isinstance(error, commands.UserInputError):
 			await ctx.send(f'Error: `{error}`')
 			return
 
 		elif isinstance(error, commands.CommandOnCooldown):
-			cooldown_type = str(error.cooldown.type).rsplit('.', 1)[-1]
+			_retry = round(error.retry_after, 2)
 
-			await ctx.send(f'{ctx.author.mention}, you have to wait {round(error.retry_after, 2)} seconds before using this again. The cooldown for this command is {error.cooldown.rate} per {error.cooldown.per}s for every {cooldown_type}')
+			_rate = error.cooldown.rate
+			_per = error.cooldown.per
+			_type = str(error.cooldown.type).rsplit('.', 1)[-1]
+
+			await ctx.send(f'{ctx.author.mention}, you have to wait {_retry} seconds before using this again. The cooldown for this command is {_rate} per {_per}s for every {_type}')
 			return
 
 		elif isinstance(error, commands.CommandInvokeError):
