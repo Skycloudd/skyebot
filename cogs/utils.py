@@ -25,19 +25,30 @@ class Utils(commands.Cog):
 		if isinstance(error, commands.CommandNotFound):
 			return
 
-		if isinstance(error, commands.MissingRequiredArgument):
-			await ctx.send(f'error: `{error}`')
+		elif isinstance(error, commands.MissingRequiredArgument):
+			await ctx.send(f'Error: `{error}`')
 			return
 
-		if isinstance(error, commands.BadArgument):
-			await ctx.send(f'error: `{error}`')
+		elif isinstance(error, commands.BadArgument):
+			await ctx.send(f'Error: `{error}`')
 			return
 
-		if isinstance(error, commands.CommandOnCooldown):
+		elif isinstance(error, commands.CommandOnCooldown):
 			await ctx.send(f'{ctx.author.mention}, you have to wait {round(error.retry_after, 2)} seconds before using this again')
 			return
 
+		elif isinstance(error, commands.CommandInvokeError):
+			await ctx.send(f'Something went wrong! Error: `{error}`')
+			# report this error to the developer
+			appinfo = await self.bot.application_info()
+			await appinfo.owner.send(f'An error occured: `{error}`\nctx.message: `{ctx.message}`\nctx.message.content: `{ctx.message.content}`')
+			return
+
 		raise error
+
+	@commands.command()
+	async def test(self, ctx):
+		int('h')
 
 
 def setup(bot):
