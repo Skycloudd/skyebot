@@ -23,6 +23,9 @@ default_prefixes = [',']
 def get_prefix(bot, message):
 	return commands.when_mentioned_or(*default_prefixes)(bot, message)
 
+async def get_bot_owner():
+	return await self.bot.application_info().owner
+
 
 class SkyeBot(commands.Bot):
 
@@ -47,7 +50,7 @@ class SkyeBot(commands.Bot):
 		self.start_time = time.time()
 		self.main_colour = discord.Colour(0xc500ff)
 		self.default_prefixes = default_prefixes
-		self.owner = await self.bot.application_info().owner
+		self.owner = get_bot_owner()
 
 	async def on_ready(self):
 		print(f'logged in as {self.user}')
