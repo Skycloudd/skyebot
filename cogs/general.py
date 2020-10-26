@@ -30,7 +30,7 @@ class General(commands.Cog):
 		embed = discord.Embed(
 			title='Information about SkyeBot',
 			colour=self.bot.main_colour,
-			description='This bot was made by `skye#9250`. The full source code can be found at https://github.com/Skycloudd/skyebot.'
+			description=f'This bot was made by `{self.bot.owner.name}#{self.bot.owner.discriminator}`. The full source code can be found at https://github.com/Skycloudd/skyebot.'
 		)
 
 		embed.set_thumbnail(url=self.bot.user.avatar_url_as(format="png"))

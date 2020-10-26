@@ -42,7 +42,6 @@ class Utils(commands.Cog):
 		elif isinstance(error, commands.CommandInvokeError):
 			await ctx.send(f'Something went wrong! Error: `{error}`')
 			# report this error to the developer
-			appinfo = await self.bot.application_info()
 			await self.bot.owner.send(f'An error occured: `{error}`\nctx.message: `{ctx.message}`\nctx.message.content: `{ctx.message.content}`')
 			return
 
