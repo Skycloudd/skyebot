@@ -9,6 +9,7 @@ class Findseed(commands.Cog):
 		self.bot = bot
 
 	@commands.command(description='Simulates Minecraft end portal generation')
+	@commands.cooldown(1, 60, commands.BucketType.guild)
 	async def findseed(self, ctx):
 		eyes = 0
 		for i in range(12):
@@ -18,6 +19,7 @@ class Findseed(commands.Cog):
 		await ctx.send(f'{ctx.author.mention} -> your seed is a {eyes} eye')
 
 	@commands.command(aliases=['fsv', 'findseedvisual', 'visualfindseed'], description='Simulates Minecraft end portal generation with graphics')
+	@commands.cooldown(1, 60, commands.BucketType.guild)
 	async def findseedbutvisual(self, ctx):
 		portals = []
 		eyes = 0
