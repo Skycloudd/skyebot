@@ -23,9 +23,7 @@ class General(commands.Cog):
 		w, d = divmod(d, 7)
 		uptime_str = f'{int(w)}w : {int(d)}d : {int(h)}h : {int(m)}m : {int(s)}s'
 
-		member_count = 0
-		for guild in self.bot.guilds:
-			member_count += len(guild.members)
+		member_count = len(self.bot.users)
 
 		embed = discord.Embed(
 			title='Information about SkyeBot',
