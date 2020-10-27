@@ -8,15 +8,15 @@ import time
 
 extensions = [
 	#owner
-	'cogs.utils',
 	'cogs.admin',
+	'cogs.utils',
 	#normal users
-	'cogs.moderator',
-	'cogs.logs',
-	'cogs.general',
-	'cogs.fun',
 	'cogs.counting',
-	'cogs.findseed'
+	'cogs.findseed',
+	'cogs.fun',
+	'cogs.general',
+	'cogs.logs',
+	'cogs.moderator'
 ]
 
 default_prefixes = [',']
