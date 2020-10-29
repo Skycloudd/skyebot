@@ -14,7 +14,7 @@ class General(commands.Cog):
 
 		await ctx.send('Your report was sent to the developer!')
 
-	@commands.command(description='Displays information about the bot')
+	@commands.command(description='Displays information about the bot', aliases=['ping', 'uptime', 'source'])
 	async def info(self, ctx):
 		seconds = time.time() - self.bot.start_time
 		m, s = divmod(seconds, 60)
