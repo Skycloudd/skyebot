@@ -19,7 +19,7 @@ class Logs(commands.Cog):
 		if ctx.invoked_subcommand is None:
 			await ctx.send('Invalid command passed')
 
-	@logs.command()
+	@logs.command(description='Sets the channel for message logging')
 	async def channel(self, ctx, channel: discord.TextChannel = None):
 		if not channel:
 			with open('logs_config.json', 'r') as f:
