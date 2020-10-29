@@ -14,11 +14,15 @@ class Logs(commands.Cog):
 			with open('logs_config.json', 'w+') as f:
 				json.dump({}, f, indent=4)
 
+	async def is_mod(ctx):
+		return ctx.author.guild_permissions.manage_channels
+
 	@commands.group()
 	async def logs(self, ctx):
 		if ctx.invoked_subcommand is None:
 			await ctx.send('Invalid command passed')
 
+	@commands.check(is_mod)
 	@logs.command(description='Sets the channel for message logging')
 	async def channel(self, ctx, channel: discord.TextChannel = None):
 		if not channel:
