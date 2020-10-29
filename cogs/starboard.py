@@ -54,7 +54,7 @@ class Starboard(commands.Cog):
 		with open('starboard_config.json', 'w') as f:
 			json.dump(starboard_config, f, indent=4)
 
-		await ctx.send(f'Set starboard channel to {channel.mention}, and set the required amount of stars to {amount}')
+		await ctx.send(f'**Starboard setup**\nChannel: {channel.mention}\nRequired stars: {amount}')
 
 	@commands.Cog.listener()
 	async def on_reaction_add(self, reaction, user):
