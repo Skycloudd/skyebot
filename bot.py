@@ -16,7 +16,8 @@ extensions = [
 	'cogs.fun',
 	'cogs.general',
 	'cogs.logs',
-	'cogs.moderator'
+	'cogs.moderator',
+	'cogs.starboard'
 ]
 
 default_prefixes = [',']
