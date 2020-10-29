@@ -40,6 +40,8 @@ class Utils(commands.Cog):
 			return
 
 		elif isinstance(error, commands.CommandInvokeError):
+			if '403 Forbidden' in str(error.original):
+				return
 			await ctx.send(f'Something went wrong! Error: `{error}`')
 			# report this error to the developer
 			await self.bot.owner.send(f'An error occured: `{error}`\n\nctx.message: `{ctx.message}`\n\nctx.message.content: `{ctx.message.content}`')
