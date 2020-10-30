@@ -24,6 +24,9 @@ default_prefixes = [',']
 def get_prefix(bot, message):
 	return commands.when_mentioned_or(*default_prefixes)(bot, message)
 
+intents = discord.Intents.default()
+intents.members = True
+
 
 class SkyeBot(commands.Bot):
 
@@ -35,7 +38,8 @@ class SkyeBot(commands.Bot):
 				everyone=True,
 				users=True,
 				roles=True
-			)
+			),
+			intents=intents
 		)
 		self.logger = logging.getLogger('discord')
 
