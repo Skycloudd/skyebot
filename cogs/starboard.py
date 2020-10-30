@@ -58,7 +58,6 @@ class Starboard(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_reaction_add(self, reaction, user):
-		#await reaction.message.channel.send(f'reaction added: {reaction.emoji}\nuser: {user.name}')
 		with open('starboard_config.json', 'r') as f:
 			starboard_config = json.load(f)
 
