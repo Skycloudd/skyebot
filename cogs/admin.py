@@ -67,17 +67,6 @@ class Admin(commands.Cog):
 			await ctx.send(f'Some unknown error happened while trying to reload extension {ext} (check logs)')
 			self.bot.logger.exception(f'Failed to unload extension {ext}:')
 
-	@commands.is_owner()
-	@commands.command(description='Sets a \'playing\' activity')
-	async def activity(self, ctx,*, activity=None):
-		if activity:
-			game = discord.Game(activity)
-		else:
-			activity = ''
-			game = discord.Game(activity)
-		await self.bot.change_presence(activity=game)
-		await ctx.send(f'Activity changed to {activity}')
-
 
 def setup(bot):
 	bot.add_cog(Admin(bot))
