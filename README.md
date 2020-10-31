@@ -5,7 +5,8 @@
 - Create a file called `config.json`
 ```json
 {
-	"token": "your bot token here"
+	"token": "your bot token here",
+	"nasa_apikey": "https://api.nasa.gov/#signUp"
 }
 ```
 

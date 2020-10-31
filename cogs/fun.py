@@ -48,6 +48,39 @@ class Fun(commands.Cog):
 
 		await ctx.send(embed=embed)
 
+	@commands.command(description='Get the \"Astronomy Picture of the Day\" from NASA', aliases=['apod'])
+	async def nasapic(self, ctx):
+		apikey = self.bot.config["nasa_apikey"]
+
+		async with self.bot.session.get(
+			f'https://api.nasa.gov/planetary/apod?api_key={apikey}'
+		) as url:
+			data = json.loads(await url.text())
+
+		hd_url = data["hdurl"]
+		title = data["title"]
+		explanation = data["explanation"]
+		date = data["date"]
+		try:
+			copyright = data["copyright"]
+		except KeyError:
+			copyright = None
+
+		embed = discord.Embed(
+			title=f'NASA Astronomy Picture of the Day',
+			colour=self.bot.main_colour,
+			description=f'{explanation}'
+		)
+
+		if copyright:
+			embed.set_author(name=copyright)
+
+		embed.set_image(url=hd_url)
+
+		embed.set_footer(text=date)
+
+		await ctx.send(embed=embed)
+
 
 def setup(bot):
 	bot.add_cog(Fun(bot))
