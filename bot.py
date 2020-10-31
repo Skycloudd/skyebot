@@ -4,6 +4,7 @@ from discord.ext import commands
 import logging
 import json
 import time
+from aiohttp import ClientSession
 
 
 extensions = [
@@ -52,6 +53,8 @@ class SkyeBot(commands.Bot):
 		self.start_time = time.time()
 		self.main_colour = discord.Colour(0xc500ff)
 		self.default_prefixes = default_prefixes
+
+		self.session = ClientSession()
 
 	async def on_ready(self):
 		print(f'logged in as {self.user}')
