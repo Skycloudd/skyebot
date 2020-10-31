@@ -3,11 +3,33 @@ from discord.ext import commands
 
 from random import randint
 import json
+import pokebase as pb
 
 
 class Fun(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
+
+	@commands.command()
+	async def stats(self, ctx, name):
+		try:
+			pokemon = pb.pokemon(name)
+
+			embed = discord.Embed(
+				title=f'Base stats for {pokemon.name}',
+				colour=self.bot.main_colour
+			)
+
+			for stat in pokemon.stats:
+				embed.add_field(
+					name=stat.stat.name,
+					value=stat.base_stat
+				)
+
+			await ctx.send(embed=embed)
+		except AttributeError:
+			await ctx.send(f'The pokemon `{name}` doesn\'t exist!')
+			return
 
 	@commands.command(aliases=['random'], description='Generates a random number in the range minimum (inclusive) - maximum (inclusive)')
 	async def rng(self, ctx, minimum: int, maximum: int):
