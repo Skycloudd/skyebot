@@ -20,34 +20,33 @@ class Fun(commands.Cog):
 		) as url:
 			data = json.loads(await url.text())
 
+		invalid = data[0]["invalid_count"]
 
-			invalid = data[0]["invalid_count"]
+		question = data[0]["question"]
+		answer = data[0]["answer"]
+		category = data[0]["category"]
+		category_title = category["title"]
 
-			question = data[0]["question"]
-			answer = data[0]["answer"]
-			category = data[0]["category"]
-			category_title = category["title"]
+		embed = discord.Embed(
+			title=f'Question: {question}',
+			colour=self.bot.main_colour,
+			description=f'Category: {category_title}'
+		)
 
-			embed = discord.Embed(
-				title=f'Question: {question}',
-				colour=self.bot.main_colour,
-				description=f'Category: {category_title}'
-			)
-
-			if invalid:
-				embed.add_field(
-					name='⚠️ Potentially invalid question ⚠️',
-					value=f'this question might rely on images or sounds to be answered, based on a count of {invalid}',
-					inline=False
-				)
-
+		if invalid:
 			embed.add_field(
-				name='Answer',
-				value=f'||{answer}||',
+				name='⚠️ Potentially invalid question ⚠️',
+				value=f'this question might rely on images or sounds to be answered, based on a count of {invalid}',
 				inline=False
 			)
 
-			await ctx.send(embed=embed)
+		embed.add_field(
+			name='Answer',
+			value=f'||{answer}||',
+			inline=False
+		)
+
+		await ctx.send(embed=embed)
 
 
 def setup(bot):
