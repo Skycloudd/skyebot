@@ -56,6 +56,45 @@ class Reactionroles(commands.Cog):
 		if role:
 			await member.add_roles(role)
 
+	@commands.Cog.listener()
+	async def on_raw_reaction_remove(self, payload):
+		channel = self.bot.get_channel(payload.channel_id)
+
+		guild = self.bot.get_guild(payload.guild_id)
+		member = guild.get_member(payload.user_id)
+
+		message_id = payload.message_id
+
+		emote = payload.emoji
+
+		if member.bot:
+			return
+
+		try:
+			with open('reactionroles.json', 'r') as f:
+				reactionroles = json.load(f)
+		except FileNotFoundError:
+			return
+
+		try:
+			msg = None
+			for message in reactionroles[str(guild.id)]["messages"]:
+				if message["message_id"] == message_id:
+					msg = message
+					break
+		except KeyError:
+			return
+
+		if not msg:
+			return
+		
+		if str(msg["emote"]) != str(emote):
+			return
+
+		role = guild.get_role(msg["role_id"])
+		if role:
+			await member.remove_roles(role)
+
 	@commands.command()
 	@commands.check(is_mod)
 	async def reactionrole(self, ctx, channel: discord.TextChannel, message_id: int, role_id: int, emote: str):
