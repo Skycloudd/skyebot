@@ -18,6 +18,7 @@ extensions = [
 	'cogs.general',
 	'cogs.logs',
 	'cogs.moderator',
+	'cogs.reactionroles',
 	'cogs.starboard'
 ]
 

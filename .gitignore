@@ -5,6 +5,7 @@ config.json
 counting.json
 logs_config.json
 starboard_config.json
+reactionroles.json
 *.log
 
 *.sublime-project
