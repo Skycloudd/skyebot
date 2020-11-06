@@ -10,7 +10,46 @@ class Fun(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
-	@commands.command()
+	@commands.command(description='Defines a term with Urban Dictionary', aliases=['urban'])
+	async def urbandefine(self, ctx, *, term):
+		async with self.bot.session.get(
+			f"http://api.urbandictionary.com/v0/define?term=\"{term}\""
+		) as url:
+			data = json.loads(await url.text())
+
+		embed = discord.Embed(
+			title=f'Urban Dictionary definitions for "{term}"',
+			colour=self.bot.main_colour
+		)
+
+		top_definition_permalink = data["list"][0]["permalink"]
+
+		for entry in data["list"]:
+			word = entry["word"]
+			definition = entry["definition"]
+			example = entry["example"]
+			thumbs_up = entry["thumbs_up"]
+			thumbs_down = entry["thumbs_down"]
+			author = entry["author"]
+			permalink = entry["permalink"]
+
+			embed.add_field(
+				name=f'Definition for `{word}` by `{author}`',
+				value=f'[Link to this definition]({permalink})\n\nDefinition: {definition}\nExample: {example}\n\n👍 {thumbs_up}\n\n👎{thumbs_down}',
+				inline=False
+			)
+
+		try:
+			await ctx.send(embed=embed)
+		except:
+			await ctx.send(embed=discord.Embed(
+				title=f'Urban Dictionary definitions for "{term}"',
+				colour=self.bot.main_colour,
+				description=f'An error occured. The definitions can be found [here]({top_definition_permalink})'
+			))
+
+
+	@commands.command(description='Gets the base stats for any pokemon')
 	async def stats(self, ctx, name):
 		try:
 			pokemon = pb.pokemon(name)
