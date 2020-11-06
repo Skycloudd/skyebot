@@ -22,7 +22,10 @@ class Fun(commands.Cog):
 			colour=self.bot.main_colour
 		)
 
-		top_definition_permalink = data["list"][0]["permalink"]
+		try:
+			top_definition_permalink = data["list"][0]["permalink"]
+		except:
+			pass
 
 		for entry in data["list"]:
 			word = entry["word"]
