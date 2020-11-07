@@ -131,9 +131,9 @@ class Fun(commands.Cog):
 			copyright = None
 
 		embed = discord.Embed(
-			title=f'NASA Astronomy Picture of the Day',
+			title=title,
 			colour=self.bot.main_colour,
-			description=f'{explanation}'
+			description=explanation
 		)
 
 		if copyright:
