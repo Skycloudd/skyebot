@@ -19,7 +19,6 @@ class Utils(commands.Cog):
 	async def before_activity(self):
 		await self.bot.wait_until_ready()
 
-
 	@commands.Cog.listener()
 	async def on_command_error(self, ctx, error):
 		if isinstance(error, commands.CommandNotFound):

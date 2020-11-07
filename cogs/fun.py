@@ -51,7 +51,6 @@ class Fun(commands.Cog):
 				description=f'An error occured. The definitions can be found [here]({top_definition_permalink})'
 			))
 
-
 	@commands.command(description='Gets the base stats for any pokemon')
 	async def stats(self, ctx, name):
 		try:

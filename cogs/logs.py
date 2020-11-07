@@ -50,8 +50,6 @@ class Logs(commands.Cog):
 
 		await ctx.send(f'Set message logging channel to {channel.mention}')
 
-
-
 	@commands.Cog.listener()
 	async def on_message_delete(self, msg):
 
@@ -71,7 +69,6 @@ class Logs(commands.Cog):
 			except IndexError:
 				return
 			return
-
 
 		embed = discord.Embed(
 			title='Deleted Message',
