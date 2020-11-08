@@ -34,7 +34,9 @@ class Counting(commands.Cog):
 			data = json.load(f)
 
 		if str(msg.guild.id) not in data:
-			data[str(msg.guild.id)]	= 1
+			data[str(msg.guild.id)]	= {}
+			data[str(msg.guild.id)]["current"] = 1
+			data[str(msg.guild.id)]["highscore"] = -1
 			with open('counting.json', 'w') as f:
 				json.dump(data, f, indent=4)
 
@@ -43,15 +45,20 @@ class Counting(commands.Cog):
 		except:
 			return
 		
-		current_num = int(data[str(msg.guild.id)])
+		current_num = data[str(msg.guild.id)]["current"]
 
 		if num == current_num:
 			await msg.add_reaction('✅')
-			data[str(msg.guild.id)]	= data[str(msg.guild.id)] + 1
+			data[str(msg.guild.id)]["current"]	= data[str(msg.guild.id)]["current"] + 1
 			with open('counting.json', 'w') as f:
 				json.dump(data, f, indent=4)
 		else:
-			data[str(msg.guild.id)]	= 1
+			current_highscore = data[str(msg.guild.id)]["highscore"]
+			if data[str(msg.guild.id)]["current"] - 1 > current_highscore:
+				data[str(msg.guild.id)]["highscore"] = data[str(msg.guild.id)]["current"] - 1
+				await msg.channel.send(f'New highscore of {data[str(msg.guild.id)]["highscore"]}')
+
+			data[str(msg.guild.id)]["current"]	= 1
 			with open('counting.json', 'w') as f:
 				json.dump(data, f, indent=4)
 			await msg.channel.send(f'wrong number! the counter has been reset to 1')
@@ -61,7 +68,7 @@ class Counting(commands.Cog):
 		with open('counting.json', 'r') as f:
 			data = json.load(f)
 
-		current_num = data[str(ctx.guild.id)]
+		current_num = data[str(msg.guild.id)]["current"]
 		await ctx.send(f'current number: {current_num}')
 
 
