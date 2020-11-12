@@ -8,6 +8,14 @@ class General(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
 
+	@commands.command(description='Invite this bot to your server!', aliases=['addbot', 'botinvite'])
+	async def invite(self, ctx):
+		url = discord.utils.oauth_url(
+			self.bot.user.id,
+			permissions = discord.Permissions.all()
+		)
+		await ctx.send(f'Invite link: {url}')
+
 	@commands.command(description='Sends a report to the bot developer')
 	async def report(self, ctx, *, report_message):
 		await self.bot.owner.send(f'**report from {ctx.author.name}#{ctx.author.discriminator} (id:{ctx.author.id})**\n```{report_message}```')
