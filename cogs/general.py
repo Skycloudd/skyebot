@@ -14,7 +14,7 @@ class General(commands.Cog):
 			self.bot.user.id,
 			permissions = discord.Permissions.all()
 		)
-		await ctx.send(f'Invite link: {url}')
+		await ctx.send(f'Invite link: <{url}>')
 
 	@commands.command(description='Sends a report to the bot developer')
 	async def report(self, ctx, *, report_message):
