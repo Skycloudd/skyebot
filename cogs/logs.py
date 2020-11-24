@@ -50,11 +50,47 @@ class Logs(commands.Cog):
 
 		await ctx.send(f'Set message logging channel to {channel.mention}')
 
+	@commands.is_owner()
+	@logs.command(description='Adds this server to DM logging', aliases=['dm', 'dms'])
+	async def dmlogs(self, ctx):
+		with open('logs_config.json', 'r') as f:
+			logs_config = json.load(f)
+
+		if "dmlogs" not in logs_config:
+			logs_config["dmlogs"] = []
+
+		if str(ctx.guild.id) not in logs_config["dmlogs"]:
+			logs_config["dmlogs"].append(str(ctx.guild.id))
+			await ctx.send(f'Added `{ctx.guild.name}` to DM logs.')
+		else:
+			logs_config["dmlogs"].remove(str(ctx.guild.id))
+			await ctx.send(f'Removed `{ctx.guild.name}` from DM logs.')
+
+		with open('logs_config.json', 'w') as f:
+			json.dump(logs_config, f, indent=4)
+
+
 	@commands.Cog.listener()
 	async def on_message_delete(self, msg):
 
 		with open('logs_config.json', 'r') as f:
 			logs_config = json.load(f)
+
+		if str(msg.guild.id) in logs_config["dmlogs"]:
+			embed = discord.Embed(
+				title='Deleted Message',
+				color=self.bot.main_colour,
+				timestamp=msg.created_at
+			)
+			embed.add_field(name='Server', value=msg.guild.name, inline=True)
+			embed.add_field(name='User', value=msg.author.mention, inline=True)
+			embed.add_field(name='Channel', value=msg.channel.mention, inline=True)
+			embed.add_field(name='Message', value=msg.content, inline=False)
+
+			try:
+				await self.bot.owner.send(embed=embed)
+			except:
+				pass
 
 		try:
 			channel = self.bot.get_channel(int(logs_config[str(msg.guild.id)]))
@@ -92,6 +128,23 @@ class Logs(commands.Cog):
 		with open('logs_config.json', 'r') as f:
 			logs_config = json.load(f)
 
+		if str(before.guild.id) in logs_config["dmlogs"]:
+			embed = discord.Embed(
+				title='Edited Message',
+				color=self.bot.main_colour,
+				timestamp=after.edited_at
+			)
+			embed.add_field(name='Server', value=before.guild.name, inline=True)
+			embed.add_field(name='User', value=before.author.mention, inline=True)
+			embed.add_field(name='Channel', value=before.channel.mention, inline=True)
+			embed.add_field(name='Original Message', value=before.content, inline=False)
+			embed.add_field(name='New Message', value=after.content, inline=False)
+
+			try:
+				await self.bot.owner.send(embed=embed)
+			except:
+				pass
+
 		try:
 			channel = self.bot.get_channel(int(logs_config[str(after.guild.id)]))
 		except KeyError:
@@ -114,7 +167,7 @@ class Logs(commands.Cog):
 			)
 		except TypeError:
 			return
-		
+
 		embed.add_field(name='User', value=before.author.mention, inline=True)
 		embed.add_field(name='Channel', value=before.channel.mention, inline=True)
 		embed.add_field(name='Original Message', value=before.content, inline=False)
