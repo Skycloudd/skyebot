@@ -4,11 +4,40 @@ from discord.ext import commands
 from random import randint
 import json
 import pokebase as pb
+import calendar
 
 
 class Fun(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
+
+	@commands.command(name='calendar')
+	async def calendar_(self, ctx, year: int, month: str):
+		try:
+			month = int(month)
+		except ValueError:
+			try:
+				if month.lower() in (x.lower() for x in calendar.month_name):
+					month = list(calendar.month_name).index(month.capitalize())
+				elif month.lower() in (x.lower() for x in calendar.month_abbr):
+					month = list(calendar.month_abbr).index(month.capitalize())
+			except ValueError:
+				await ctx.send(f'`{month}` is not a valid month')
+				return
+
+		try:
+			cal = calendar.month(year, month)
+		except TypeError:
+			await ctx.send(f'`{month}` is not a valid month')
+			return
+
+		embed = discord.Embed(
+			title=f'{year} / {calendar.month_name[month]}',
+			colour=self.bot.main_colour,
+			description=f'```\n{cal}```'
+		)
+
+		await ctx.send(embed=embed)
 
 	@commands.command(description='Defines a term with Urban Dictionary', aliases=['urban'])
 	async def urbandefine(self, ctx, *, term: str):
