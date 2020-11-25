@@ -11,7 +11,7 @@ class Fun(commands.Cog):
 		self.bot = bot
 
 	@commands.command(description='Defines a term with Urban Dictionary', aliases=['urban'])
-	async def urbandefine(self, ctx, *, term):
+	async def urbandefine(self, ctx, *, term: str):
 		async with self.bot.session.get(
 			f"http://api.urbandictionary.com/v0/define?term=\"{term}\""
 		) as url:
@@ -52,7 +52,7 @@ class Fun(commands.Cog):
 			))
 
 	@commands.command(description='Gets the base stats for any pokemon')
-	async def stats(self, ctx, name):
+	async def stats(self, ctx, name: str):
 		try:
 			pokemon = pb.pokemon(name)
 

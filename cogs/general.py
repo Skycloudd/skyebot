@@ -17,7 +17,7 @@ class General(commands.Cog):
 		await ctx.send(f'Invite link: <{url}>')
 
 	@commands.command(description='Sends a report to the bot developer')
-	async def report(self, ctx, *, report_message):
+	async def report(self, ctx, *, report_message: str):
 		await self.bot.owner.send(f'**report from {ctx.author.name}#{ctx.author.discriminator} (id:{ctx.author.id})**\n```{report_message}```')
 
 		await ctx.send('Your report was sent to the developer!')

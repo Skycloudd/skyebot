@@ -23,7 +23,7 @@ class Admin(commands.Cog):
 
 	@commands.is_owner()
 	@commands.command(name='reload', usage='<extension>', description='Reloads an extension')
-	async def _reload(self, ctx, ext):
+	async def _reload(self, ctx, ext: str):
 		try:
 			self.bot.reload_extension(f'cogs.{ext}')
 			await ctx.send(f'The extension {ext} was reloaded!')
@@ -39,7 +39,7 @@ class Admin(commands.Cog):
 			
 	@commands.is_owner()
 	@commands.command(name='load', usage='<extension>', description='Loads an extension')
-	async def _load(self, ctx, ext):
+	async def _load(self, ctx, ext: str):
 		try:
 			self.bot.load_extension(f'cogs.{ext}')
 			await ctx.send(f'The extension {ext} was loaded!')
@@ -55,7 +55,7 @@ class Admin(commands.Cog):
 
 	@commands.is_owner()
 	@commands.command(name='unload', usage='<extension>', description='Unloads an extension')
-	async def _unload(self, ctx, ext):
+	async def _unload(self, ctx, ext: str):
 		try:
 			self.bot.unload_extension(f'cogs.{ext}')
 			await ctx.send(f'The extension {ext} was unloaded!')
