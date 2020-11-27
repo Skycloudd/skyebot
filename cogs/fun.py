@@ -16,20 +16,15 @@ class Fun(commands.Cog):
 		try:
 			month = int(month)
 		except ValueError:
-			try:
-				if month.lower() in (x.lower() for x in calendar.month_name):
-					month = list(calendar.month_name).index(month.capitalize())
-				elif month.lower() in (x.lower() for x in calendar.month_abbr):
-					month = list(calendar.month_abbr).index(month.capitalize())
-			except ValueError:
+			if month.lower() in (x.lower() for x in calendar.month_name):
+				month = list(calendar.month_name).index(month.capitalize())
+			elif month.lower() in (x.lower() for x in calendar.month_abbr):
+				month = list(calendar.month_abbr).index(month.capitalize())
+			else:
 				await ctx.send(f'`{month}` is not a valid month')
 				return
 
-		try:
-			cal = calendar.month(year, month)
-		except TypeError:
-			await ctx.send(f'`{month}` is not a valid month')
-			return
+		cal = calendar.month(year, month)
 
 		embed = discord.Embed(
 			title=f'{year} / {calendar.month_name[month]}',
