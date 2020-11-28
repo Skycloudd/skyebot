@@ -75,22 +75,24 @@ class Logs(commands.Cog):
 
 		with open('logs_config.json', 'r') as f:
 			logs_config = json.load(f)
+		try:
+			if str(msg.guild.id) in logs_config["dmlogs"]:
+				embed = discord.Embed(
+					title='Deleted Message',
+					color=self.bot.main_colour,
+					timestamp=msg.created_at
+				)
+				embed.add_field(name='Server', value=msg.guild.name, inline=True)
+				embed.add_field(name='User', value=msg.author.mention, inline=True)
+				embed.add_field(name='Channel', value=msg.channel.mention, inline=True)
+				embed.add_field(name='Message', value=msg.content, inline=False)
 
-		if str(msg.guild.id) in logs_config["dmlogs"]:
-			embed = discord.Embed(
-				title='Deleted Message',
-				color=self.bot.main_colour,
-				timestamp=msg.created_at
-			)
-			embed.add_field(name='Server', value=msg.guild.name, inline=True)
-			embed.add_field(name='User', value=msg.author.mention, inline=True)
-			embed.add_field(name='Channel', value=msg.channel.mention, inline=True)
-			embed.add_field(name='Message', value=msg.content, inline=False)
-
-			try:
-				await self.bot.owner.send(embed=embed)
-			except:
-				pass
+				try:
+					await self.bot.owner.send(embed=embed)
+				except:
+					pass
+		except AttributeError:
+			return
 
 		try:
 			channel = self.bot.get_channel(int(logs_config[str(msg.guild.id)]))
@@ -128,22 +130,25 @@ class Logs(commands.Cog):
 		with open('logs_config.json', 'r') as f:
 			logs_config = json.load(f)
 
-		if str(before.guild.id) in logs_config["dmlogs"]:
-			embed = discord.Embed(
-				title='Edited Message',
-				color=self.bot.main_colour,
-				timestamp=after.edited_at
-			)
-			embed.add_field(name='Server', value=before.guild.name, inline=True)
-			embed.add_field(name='User', value=before.author.mention, inline=True)
-			embed.add_field(name='Channel', value=before.channel.mention, inline=True)
-			embed.add_field(name='Original Message', value=before.content, inline=False)
-			embed.add_field(name='New Message', value=after.content, inline=False)
+		try:
+			if str(before.guild.id) in logs_config["dmlogs"]:
+				embed = discord.Embed(
+					title='Edited Message',
+					color=self.bot.main_colour,
+					timestamp=after.edited_at
+				)
+				embed.add_field(name='Server', value=before.guild.name, inline=True)
+				embed.add_field(name='User', value=before.author.mention, inline=True)
+				embed.add_field(name='Channel', value=before.channel.mention, inline=True)
+				embed.add_field(name='Original Message', value=before.content, inline=False)
+				embed.add_field(name='New Message', value=after.content, inline=False)
 
-			try:
-				await self.bot.owner.send(embed=embed)
-			except:
-				pass
+				try:
+					await self.bot.owner.send(embed=embed)
+				except:
+					pass
+		except AttributeError:
+			return
 
 		try:
 			channel = self.bot.get_channel(int(logs_config[str(after.guild.id)]))
