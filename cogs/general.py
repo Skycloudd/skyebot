@@ -18,7 +18,7 @@ class General(commands.Cog):
 
 	@commands.command(description='Sends a report to the bot developer')
 	async def report(self, ctx, *, report_message: str):
-		await self.bot.owner.send(f'**report from {ctx.author.name}#{ctx.author.discriminator} (id:{ctx.author.id})**\n```{report_message}```')
+		await self.bot.owner.send(f'**report from {ctx.author} (id: {ctx.author.id})**\n```{report_message}```')
 
 		await ctx.send('Your report was sent to the developer!')
 
@@ -36,7 +36,7 @@ class General(commands.Cog):
 		embed = discord.Embed(
 			title='Information about SkyeBot',
 			colour=self.bot.main_colour,
-			description=f'This bot was made by `{self.bot.owner.name}#{self.bot.owner.discriminator}`. The full source code can be found at https://github.com/Skycloudd/skyebot.'
+			description=f'This bot was made by `{self.bot.owner}`. The full source code can be found at https://github.com/Skycloudd/skyebot.'
 		)
 
 		embed.set_thumbnail(url=self.bot.user.avatar_url_as(format="png"))

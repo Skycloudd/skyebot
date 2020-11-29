@@ -22,7 +22,7 @@ class Moderator(commands.Cog):
 				pass
 
 			await ctx.guild.ban(user, reason=reason, delete_message_days=0)
-			await ctx.send(f'Banned {user.name} from this server permanently.\nReason: `{reason}`')
+			await ctx.send(f'Banned {user} from this server permanently.\nReason: `{reason}`')
 
 		else:
 			try:
@@ -31,7 +31,7 @@ class Moderator(commands.Cog):
 				pass
 
 			await ctx.guild.ban(user, reason=reason, delete_message_days=0)
-			await ctx.send(f'Banned {user.name} from this server for {minutes} minutes.\nReason: `{reason}`')
+			await ctx.send(f'Banned {user} from this server for {minutes} minutes.\nReason: `{reason}`')
 			await asyncio.sleep(minutes * 60)
 			await ctx.guild.unban(user, reason=f'Time is up ({minutes} minutes)')
 
@@ -44,7 +44,7 @@ class Moderator(commands.Cog):
 			pass
 
 		await ctx.guild.kick(user, reason=reason)
-		await ctx.send(f'Kicked {user.name} from this server.\nReason: `{reason}`')
+		await ctx.send(f'Kicked {user} from this server.\nReason: `{reason}`')
 
 
 def setup(bot):
