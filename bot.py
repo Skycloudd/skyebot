@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 
-import logging
 import json
 import time
 from aiohttp import ClientSession
@@ -43,7 +42,6 @@ class SkyeBot(commands.Bot):
 			),
 			intents=intents
 		)
-		self.logger = logging.getLogger('discord')
 
 		for extension in extensions:
 			self.load_extension(extension)
