@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 
 import time
+import sys
 
 
 class General(commands.Cog):
@@ -31,6 +32,8 @@ class General(commands.Cog):
 		w, d = divmod(d, 7)
 		uptime_str = f'{int(w)}w : {int(d)}d : {int(h)}h : {int(m)}m : {int(s)}s'
 
+		py_version = f'{sys.version_info[0]}.{sys.version_info[1]}.{sys.version_info[2]}'
+
 		member_count = len(self.bot.users)
 
 		embed = discord.Embed(
@@ -54,6 +57,11 @@ class General(commands.Cog):
 		embed.add_field(
 			name='Library',
 			value=f'Discord.py v{discord.__version__}',
+			inline=True
+		)
+		embed.add_field(
+			name='Python version',
+			value=py_version,
 			inline=True
 		)
 		embed.add_field(
