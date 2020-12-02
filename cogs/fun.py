@@ -19,14 +19,39 @@ class Fun(commands.Cog):
 
 	@commands.command(aliases=['slotmachine'], description='Simulates a slot machine')
 	@commands.cooldown(1, 2, commands.BucketType.user)
-	async def slots(self, ctx, odds):
+	async def slots(self, ctx, show_odds = None):
+		items = ['♠', '💰', '💎', '🎰', '💵', '🎲', '🏆', '🏅']
+
+		if show_odds != None:
+			items_amount = len(items)
+			total_options = items_amount**3
+
+			hundred_coins = items_amount * 1 * 1
+			hundred_coins /= total_options
+
+			fifty_coins = (items_amount * 1 * (items_amount - 1) / total_options) + (items_amount * (items_amount - 1) * 1)
+			fifty_coins /= total_options
+
+			ten_coins = items_amount * (items_amount - 1) * 1
+			ten_coins /= total_options
+
+			minus_20_coins = items_amount * (items_amount - 1) * (items_amount - 2)
+			minus_20_coins /= total_options
+
+			output = ''
+			output += f'**100 coins**\n{hundred_coins * 100}%\n\n'
+			output += f'**50 coins**\n{fifty_coins * 100}%\n\n'
+			output += f'**10 coins**\n{ten_coins * 100}%\n\n'
+			output += f'**-20 coins**\n{minus_20_coins * 100}%\n\n'
+
+			await ctx.send(output)
+			return
+
 		with open('slots.json', 'r') as f:
 			data = json.load(f)
 
 		if str(ctx.author.id) not in data:
 			data[str(ctx.author.id)] = {"balance": 100}
-
-		items = ['♠', '💰', '💎', '🎰', '💵', '🎲', '🏆', '🏅']
 
 		slots = []
 
