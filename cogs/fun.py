@@ -29,8 +29,7 @@ class Fun(commands.Cog):
 			hundred_coins = items_amount * 1 * 1
 			hundred_coins /= total_options
 
-			fifty_coins = (items_amount * 1 * (items_amount - 1) / total_options) + (items_amount * (items_amount - 1) * 1)
-			fifty_coins /= total_options
+			fifty_coins = (items_amount * 1 * (items_amount - 1) / total_options) + (items_amount * (items_amount - 1) * 1 / total_options)
 
 			ten_coins = items_amount * (items_amount - 1) * 1
 			ten_coins /= total_options
@@ -39,10 +38,10 @@ class Fun(commands.Cog):
 			minus_20_coins /= total_options
 
 			output = ''
-			output += f'**100 coins**\n{hundred_coins * 100}%\n\n'
-			output += f'**50 coins**\n{fifty_coins * 100}%\n\n'
-			output += f'**10 coins**\n{ten_coins * 100}%\n\n'
-			output += f'**-20 coins**\n{minus_20_coins * 100}%\n\n'
+			output += f'**100 coins**\n{round(hundred_coins * 100, 5)}%\n\n'
+			output += f'**50 coins**\n{round(fifty_coins * 100, 5)}%\n\n'
+			output += f'**10 coins**\n{round(ten_coins * 100, 5)}%\n\n'
+			output += f'**-20 coins**\n{round(minus_20_coins * 100, 5)}%\n\n'
 
 			await ctx.send(output)
 			return
