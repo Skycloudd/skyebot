@@ -25,7 +25,7 @@ class Fun(commands.Cog):
 		perfect_coins = 100
 		high_coins = 50
 		medium_coins = 10
-		low_coins = -20
+		low_coins = -25
 
 
 		if show_odds != None:
@@ -71,13 +71,13 @@ class Fun(commands.Cog):
 		output += f'{slots[0]} | {slots[1]} | {slots[2]}\n'
 
 		if slots[0] == slots[1] and slots[1] == slots[2]:
-			coins = 100
+			coins = perfect_coins
 		elif slots[0] == slots[1] or slots[1] == slots[2]:
-			coins = 50
+			coins = high_coins
 		elif slots[0] == slots[2]:
-			coins = 10
+			coins = medium_coins
 		else:
-			coins = -20
+			coins = low_coins
 
 		output += f'{coins} coins\n'
 
