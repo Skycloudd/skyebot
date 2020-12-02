@@ -20,7 +20,7 @@ class Fun(commands.Cog):
 	@commands.command(aliases=['slotmachine'], description='Simulates a slot machine')
 	@commands.cooldown(1, 2, commands.BucketType.user)
 	async def slots(self, ctx, show_odds = None):
-		items = ['♠', '💰', '💎', '🎰', '💵', '🎲', '🏆', '🏅']
+		items = ['💰', '💎', '🎰', '💵', '🎲', '🏆', '🏅']
 
 		if show_odds != None:
 			items_amount = len(items)
