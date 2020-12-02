@@ -22,26 +22,36 @@ class Fun(commands.Cog):
 	async def slots(self, ctx, show_odds = None):
 		items = ['💰', '💎', '🎰', '💵', '🎲', '🏆', '🏅']
 
+		perfect_coins = 100
+		high_coins = 50
+		medium_coins = 10
+		low_coins = -20
+
+
 		if show_odds != None:
 			items_amount = len(items)
 			total_options = items_amount**3
 
-			hundred_coins = items_amount * 1 * 1
-			hundred_coins /= total_options
+			perfect_coins_odds = items_amount * 1 * 1
+			perfect_coins_odds /= total_options
 
-			fifty_coins = (items_amount * 1 * (items_amount - 1) / total_options) + (items_amount * (items_amount - 1) * 1 / total_options)
+			high_coins_odds = (items_amount * 1 * (items_amount - 1) / total_options) + (items_amount * (items_amount - 1) * 1 / total_options)
 
-			ten_coins = items_amount * (items_amount - 1) * 1
-			ten_coins /= total_options
+			medium_coins_odds = items_amount * (items_amount - 1) * 1
+			medium_coins_odds /= total_options
 
-			minus_20_coins = items_amount * (items_amount - 1) * (items_amount - 2)
-			minus_20_coins /= total_options
+			low_coins_odds = items_amount * (items_amount - 1) * (items_amount - 2)
+			low_coins_odds /= total_options
+
+			expected = perfect_coins * perfect_coins_odds + high_coins * high_coins_odds + medium_coins * medium_coins_odds + low_coins * low_coins_odds
 
 			output = ''
-			output += f'**100 coins**\n{round(hundred_coins * 100, 5)}%\n\n'
-			output += f'**50 coins**\n{round(fifty_coins * 100, 5)}%\n\n'
-			output += f'**10 coins**\n{round(ten_coins * 100, 5)}%\n\n'
-			output += f'**-20 coins**\n{round(minus_20_coins * 100, 5)}%\n\n'
+			output += f'**{perfect_coins} coins**\n{round(perfect_coins_odds * 100, 5)}%\n'
+			output += f'**{high_coins} coins**\n{round(high_coins_odds * 100, 5)}%\n'
+			output += f'**{medium_coins} coins**\n{round(medium_coins_odds * 100, 5)}%\n'
+			output += f'**{low_coins} coins**\n{round(low_coins_odds * 100, 5)}%\n\n'
+
+			output += f'**Expected outcome**\n{round(expected, 5)} coins'
 
 			await ctx.send(output)
 			return
@@ -68,7 +78,7 @@ class Fun(commands.Cog):
 			coins = 10
 		else:
 			coins = -20
-		
+
 		output += f'{coins} coins\n'
 
 		data[str(ctx.author.id)]["balance"] += coins
