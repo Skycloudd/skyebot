@@ -50,7 +50,7 @@ class Fun(commands.Cog):
 			data = json.load(f)
 
 		if str(ctx.author.id) not in data:
-			data[str(ctx.author.id)] = {"balance": 100}
+			data[str(ctx.author.id)] = {"balance": 100, "gamesplayed": 0}
 
 		slots = []
 
@@ -63,28 +63,32 @@ class Fun(commands.Cog):
 			output += f'{slots[0]} | {slots[1]} | {slots[2]}\n'
 			output += f'{coins} coins\n'
 			data[str(ctx.author.id)]["balance"] += coins
-			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins'
+			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins\n'
 		
 		elif slots[0] == slots[1] or slots[1] == slots[2]:
 			coins = 50
 			output += f'{slots[0]} | {slots[1]} | {slots[2]}\n'
 			output += f'{coins} coins\n'
 			data[str(ctx.author.id)]["balance"] += coins
-			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins'
+			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins\n'
 		
 		elif slots[0] == slots[2]:
 			coins = 10
 			output += f'{slots[0]} | {slots[1]} | {slots[2]}\n'
 			output += f'{coins} coins\n'
 			data[str(ctx.author.id)]["balance"] += coins
-			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins'	
+			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins\n'	
 		
 		else:
 			coins = -20
 			output += f'{slots[0]} | {slots[1]} | {slots[2]}\n'
 			output += f'{coins} coins\n'
 			data[str(ctx.author.id)]["balance"] += coins
-			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins'
+			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins\n'
+
+		data[str(ctx.author.id)]["gamesplayed"] += 1
+
+		output += f'You have played {data[str(ctx.author.id)]["gamesplayed"]} games'
 
 		with open('slots.json', 'w') as f:
 			json.dump(data, f, indent=4)
