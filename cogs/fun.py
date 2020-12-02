@@ -10,8 +10,14 @@ import calendar
 class Fun(commands.Cog):
 	def __init__(self, bot):
 		self.bot = bot
+		try:
+			with open('slots.json', 'r') as f:
+				pass
+		except:
+			with open('slots.json', 'w+') as f:
+				json.dump({}, f, indent=4)
 
-	@commands.command(name='calendar')
+	@commands.command(name='calendar', description='Displays the calendar for a given year and month')
 	async def calendar_(self, ctx, year: int, month: str):
 		try:
 			month = int(month)
