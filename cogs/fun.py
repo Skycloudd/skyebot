@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-from random import randint
+from random import randint, choice
 import json
 import pokebase as pb
 import calendar
@@ -16,6 +16,56 @@ class Fun(commands.Cog):
 		except:
 			with open('slots.json', 'w+') as f:
 				json.dump({}, f, indent=4)
+
+	@commands.command(aliases=['slotmachine'], description='Simulates a slot machine')
+	@commands.cooldown(1, 2, commands.BucketType.user)
+	async def slots(self, ctx, odds):
+		with open('slots.json', 'r') as f:
+			data = json.load(f)
+
+		if str(ctx.author.id) not in data:
+			data[str(ctx.author.id)] = {"balance": 100}
+
+		items = ['♠', '💰', '💎', '🎰', '💵', '🎲', '🏆', '🏅']
+
+		slots = []
+
+		for i in range(3):
+			slots.append(choice(items))
+
+		output = ''
+		if slots[0] == slots[1] and slots[1] == slots[2]:
+			coins = 100
+			output += f'{slots[0]} | {slots[1]} | {slots[2]}\n'
+			output += f'{coins} coins\n'
+			data[str(ctx.author.id)]["balance"] += coins
+			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins'
+		
+		elif slots[0] == slots[1] or slots[1] == slots[2]:
+			coins = 50
+			output += f'{slots[0]} | {slots[1]} | {slots[2]}\n'
+			output += f'{coins} coins\n'
+			data[str(ctx.author.id)]["balance"] += coins
+			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins'
+		
+		elif slots[0] == slots[2]:
+			coins = 10
+			output += f'{slots[0]} | {slots[1]} | {slots[2]}\n'
+			output += f'{coins} coins\n'
+			data[str(ctx.author.id)]["balance"] += coins
+			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins'	
+		
+		else:
+			coins = -20
+			output += f'{slots[0]} | {slots[1]} | {slots[2]}\n'
+			output += f'{coins} coins\n'
+			data[str(ctx.author.id)]["balance"] += coins
+			output += f'{ctx.author.mention}, your balance is now {data[str(ctx.author.id)]["balance"]} coins'
+
+		with open('slots.json', 'w') as f:
+			json.dump(data, f, indent=4)
+
+		await ctx.send(output)
 
 	@commands.command(name='calendar', description='Displays the calendar for a given year and month')
 	async def calendar_(self, ctx, year: int, month: str):
