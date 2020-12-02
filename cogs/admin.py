@@ -35,7 +35,6 @@ class Admin(commands.Cog):
 			await ctx.send(f'The extension {ext} doesn\'t have an entry point (try adding the setup function) ')
 		except commands.ExtensionFailed:
 			await ctx.send(f'Some unknown error happened while trying to reload extension {ext} (check logs)')
-			self.bot.logger.exception(f'Failed to reload extension {ext}:')
 			
 	@commands.is_owner()
 	@commands.command(name='load', usage='<extension>', description='Loads an extension')
@@ -51,7 +50,6 @@ class Admin(commands.Cog):
 			await ctx.send(f'The extension {ext} doesn\'t have an entry point (try adding the setup function)')
 		except commands.ExtensionFailed:
 			await ctx.send(f'Some unknown error happened while trying to reload extension {ext} (check logs)')
-			self.bot.logger.exception(f'Failed to reload extension {ext}:')
 
 	@commands.is_owner()
 	@commands.command(name='unload', usage='<extension>', description='Unloads an extension')
@@ -65,7 +63,6 @@ class Admin(commands.Cog):
 			await ctx.send(f'The extension {ext} doesn\'t have an entry point (try adding the setup function)')
 		except commands.ExtensionFailed:
 			await ctx.send(f'Some unknown error happened while trying to reload extension {ext} (check logs)')
-			self.bot.logger.exception(f'Failed to unload extension {ext}:')
 
 
 def setup(bot):
