@@ -17,6 +17,61 @@ class Fun(commands.Cog):
 			with open('slots.json', 'w+') as f:
 				json.dump({}, f, indent=4)
 
+		try:
+			with open('listeners.json', 'r') as f:
+				pass
+		except:
+			with open('listeners.json', 'w+') as f:
+				json.dump({}, f, indent=4)
+
+	@commands.Cog.listener()
+	async def on_message(self, message):
+		if message.author.bot:
+			return
+
+		with open('listeners.json', 'r') as f:
+			data = json.load(f)
+
+		try:
+			for phrase in data[str(message.guild.id)]:
+				if phrase in message.content.lower():
+					await message.channel.send(data[str(message.guild.id)][phrase])
+		except KeyError:
+			return
+
+	@commands.command(description=f'Adds a phrase to react to. Wrap the phrase in quotes: \"phrase here\" to include anything with spaces', aliases=['listener', 'addphrase', 'phrase'])
+	async def addlistener(self, ctx, phrase, *, reaction):
+		with open('listeners.json', 'r') as f:
+			data = json.load(f)
+
+		if str(ctx.guild.id) not in data:
+			data[str(ctx.guild.id)] = {}
+
+		if phrase and reaction:
+			data[str(ctx.guild.id)][phrase] = reaction
+		else:
+			return
+
+		with open('listeners.json', 'w') as f:
+			json.dump(data, f, indent=4)
+
+		await ctx.send(f'**Added a listener**\n*Phrase*\n\"{phrase}\"\n*Reaction*\n\"{reaction}\"')
+
+	@commands.command(description='Removes a phrase to react to.', aliases=['removephrase'])
+	async def removelistener(self, ctx, *, phrase):
+		with open('listeners.json', 'r') as f:
+			data = json.load(f)
+
+		try:
+			data[str(ctx.guild.id)].pop(phrase)
+		except KeyError:
+			await ctx.send(f'The phrase {phrase} could not be found')
+			return
+
+		with open('listeners.json', 'w') as f:
+			json.dump(data, f, indent=4)
+
+
 	@commands.command(aliases=['slotmachine'], description='Simulates a slot machine')
 	@commands.cooldown(1, 2, commands.BucketType.user)
 	async def slots(self, ctx, show_odds = None):
