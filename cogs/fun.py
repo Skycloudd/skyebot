@@ -71,6 +71,8 @@ class Fun(commands.Cog):
 		with open('listeners.json', 'w') as f:
 			json.dump(data, f, indent=4)
 
+		await ctx.send(f'Removed phrase \"{phrase}\"')
+
 
 	@commands.command(aliases=['slotmachine'], description='Simulates a slot machine')
 	@commands.cooldown(1, 2, commands.BucketType.user)
