@@ -26,7 +26,7 @@ class Fun(commands.Cog):
 
 	@commands.Cog.listener()
 	async def on_message(self, message):
-		if message.author.bot:
+		if message.author.bot and not message.guild:
 			return
 
 		with open('listeners.json', 'r') as f:
