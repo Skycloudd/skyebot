@@ -15,7 +15,10 @@ class Logs(commands.Cog):
 				json.dump({}, f, indent=4)
 
 	async def is_mod(ctx):
-		return ctx.author.guild_permissions.manage_channels
+		try:
+			return ctx.author.guild_permissions.manage_channels
+		except AttributeError:
+			return False
 
 	@commands.group()
 	async def logs(self, ctx):

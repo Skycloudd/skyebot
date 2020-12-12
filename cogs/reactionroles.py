@@ -15,7 +15,10 @@ class Reactionroles(commands.Cog):
 				json.dump({}, f, indent=4)
 
 	async def is_mod(ctx):
-		return ctx.author.guild_permissions.manage_channels
+		try:
+			return ctx.author.guild_permissions.manage_channels
+		except AttributeError:
+			return False
 
 	@commands.Cog.listener()
 	async def on_raw_reaction_add(self, payload):

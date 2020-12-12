@@ -10,7 +10,10 @@ class Moderator(commands.Cog):
 		self.bot = bot
 
 	async def is_mod(ctx):
-		return ctx.author.guild_permissions.manage_channels
+		try:
+			return ctx.author.guild_permissions.manage_channels
+		except AttributeError:
+			return False
 
 	@commands.command(description='Bans a user from the server for an amount of time (0 minutes = permanent)')
 	@commands.check(is_mod)
