@@ -40,7 +40,7 @@ class Fun(commands.Cog):
 			return
 
 	@commands.command(description=f'Adds a phrase to react to. Wrap the phrase in quotes: \"phrase here\" to include anything with spaces', aliases=['listener', 'addphrase', 'phrase'])
-	async def addlistener(self, ctx, phrase, *, reaction):
+	async def addlistener(self, ctx, phrase: str, *, reaction: str):
 		with open('listeners.json', 'r') as f:
 			data = json.load(f)
 
@@ -58,7 +58,7 @@ class Fun(commands.Cog):
 		await ctx.send(f'**Added a listener**\n*Phrase*\n\"{phrase}\"\n*Reaction*\n\"{reaction}\"')
 
 	@commands.command(description='Removes a phrase to react to.', aliases=['removephrase'])
-	async def removelistener(self, ctx, *, phrase):
+	async def removelistener(self, ctx, *, phrase: str):
 		with open('listeners.json', 'r') as f:
 			data = json.load(f)
 
@@ -76,7 +76,7 @@ class Fun(commands.Cog):
 
 	@commands.command(aliases=['slotmachine'], description='Simulates a slot machine')
 	@commands.cooldown(1, 2, commands.BucketType.user)
-	async def slots(self, ctx, show_odds = None):
+	async def slots(self, ctx, show_odds: str = None):
 		items = ['💰', '💎', '🎰', '💵', '🎲', '🏆', '🏅']
 
 		perfect_coins = 100
