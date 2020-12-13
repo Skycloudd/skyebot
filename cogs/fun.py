@@ -5,6 +5,7 @@ from random import randint, choice
 import json
 import pokebase as pb
 import calendar
+import dis
 
 
 class Fun(commands.Cog):
@@ -23,6 +24,15 @@ class Fun(commands.Cog):
 		except:
 			with open('listeners.json', 'w+') as f:
 				json.dump({}, f, indent=4)
+
+	@commands.command(description='Disassembles Python code', aliases=['dis'])
+	async def disassemble(self, ctx, *, code: str):
+		try:
+			code = dis.Bytecode(code).dis()
+		except Exception as e:
+			await ctx.send(f'```\n{e}```')
+			return
+		await ctx.send(f'```\n{code}```')
 
 	@commands.Cog.listener()
 	async def on_message(self, message):
@@ -148,6 +158,18 @@ class Fun(commands.Cog):
 			json.dump(data, f, indent=4)
 
 		await ctx.send(output)
+
+	@commands.command(description='Shows the slot machine balance')
+	async def balance(self, ctx, user: discord.User = None):
+		if not user:
+			user = ctx.author
+
+		with open('slots.json', 'r') as f:
+			data = json.load(f)
+
+		balance = data[str(user.id)]["balance"]
+
+		await ctx.send(f'{user.mention} has {balance} coins in their bank account!')
 
 	@commands.command(name='calendar', description='Displays the calendar for a given year and month')
 	async def calendar_(self, ctx, year: int, month: str):
