@@ -238,7 +238,7 @@ class Fun(commands.Cog):
 	@commands.command(description='Gets the base stats for any pokemon')
 	async def stats(self, ctx, name: str):
 		try:
-			pokemon = pb.pokemon(name)
+			pokemon = pb.pokemon(name.lower())
 
 			embed = discord.Embed(
 				title=f'Base stats for {pokemon.name}',
