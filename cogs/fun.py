@@ -1,4 +1,5 @@
 import discord
+from discord.utils import escape_markdown, escape_mentions
 from discord.ext import commands
 
 from random import randint, choice
@@ -24,6 +25,23 @@ class Fun(commands.Cog):
 		except:
 			with open('listeners.json', 'w+') as f:
 				json.dump({}, f, indent=4)
+
+	@commands.command(aliases=['texttobin', 'ttb'])
+	async def texttobinary(self, ctx, *, text):
+		output = ' '.join(format(ord(x), 'b') for x in text)
+		await ctx.send(escape_markdown(escape_mentions(output)))
+
+	@commands.command(description = 'Converts binary to text', aliases=['bintotext', 'btt'])
+	async def binarytotext(self, ctx, *, binary: str):
+		binary = binary.replace(' ', '')
+		binary = binary.replace('\n', '')
+		bytes_list = [binary[i:i+8] for i in range(0, len(binary), 8)]
+
+		output = ''
+		for byte in bytes_list:
+			output += chr(int(byte, 2))
+
+		await ctx.send(escape_markdown(escape_mentions(output)))
 
 	@commands.command(description='Disassembles Python code', aliases=['dis'])
 	async def disassemble(self, ctx, *, code: str):
