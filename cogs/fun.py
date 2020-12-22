@@ -26,12 +26,12 @@ class Fun(commands.Cog):
 			with open('listeners.json', 'w+') as f:
 				json.dump({}, f, indent=4)
 
-	@commands.command(aliases=['texttobin', 'ttb'])
+	@commands.command(description='Converts text to binary', aliases=['texttobin', 'ttb'])
 	async def texttobinary(self, ctx, *, text):
 		output = ' '.join(format(ord(x), 'b') for x in text)
 		await ctx.send(escape_markdown(escape_mentions(output)))
 
-	@commands.command(description = 'Converts binary to text', aliases=['bintotext', 'btt'])
+	@commands.command(description='Converts binary to text', aliases=['bintotext', 'btt'])
 	async def binarytotext(self, ctx, *, binary: str):
 		binary = binary.replace(' ', '')
 		binary = binary.replace('\n', '')
