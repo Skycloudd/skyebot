@@ -26,6 +26,12 @@ class Fun(commands.Cog):
 			with open('listeners.json', 'w+') as f:
 				json.dump({}, f, indent=4)
 
+	async def is_mod(ctx):
+		try:
+			return ctx.author.guild_permissions.manage_channels
+		except AttributeError:
+			return False
+
 	@commands.command(description='Converts text to binary', aliases=['texttobin', 'ttb'])
 	async def texttobinary(self, ctx, *, text):
 		output = ' '.join(format(ord(x), 'b') for x in text)
@@ -67,6 +73,7 @@ class Fun(commands.Cog):
 		except KeyError:
 			return
 
+	@commands.check(is_mod)
 	@commands.command(description=f'Adds a phrase to react to. Wrap the phrase in quotes: \"phrase here\" to include anything with spaces', aliases=['listener', 'addphrase', 'phrase'])
 	async def addlistener(self, ctx, phrase: str, *, reaction: str):
 		with open('listeners.json', 'r') as f:
@@ -85,6 +92,7 @@ class Fun(commands.Cog):
 
 		await ctx.send(f'**Added a listener**\n*Phrase*\n\"{phrase}\"\n*Reaction*\n\"{reaction}\"')
 
+	@commands.check(is_mod)
 	@commands.command(description='Removes a phrase to react to.', aliases=['removephrase'])
 	async def removelistener(self, ctx, *, phrase: str):
 		with open('listeners.json', 'r') as f:
