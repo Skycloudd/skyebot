@@ -68,6 +68,7 @@ class Starboard(commands.Cog):
 			reaction.emoji == '⭐'
 			and reaction.count >= int(starboard_config[str(reaction.message.guild.id)]["amount"])
 			and not reaction.message.id in starboard_config[str(reaction.message.guild.id)]["pins"]
+			and reaction.message.channel.id != int(starboard_config[str(reaction.message.guild.id)]["channel"])
 		):
 			starboard_config[str(reaction.message.guild.id)]["pins"].append(reaction.message.id)
 
