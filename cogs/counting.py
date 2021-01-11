@@ -68,7 +68,7 @@ class Counting(commands.Cog):
 		with open('counting.json', 'r') as f:
 			data = json.load(f)
 
-		current_num = data[str(msg.guild.id)]["current"]
+		current_num = data[str(ctx.guild.id)]["current"]
 		await ctx.send(f'current number: {current_num}')
 
 
